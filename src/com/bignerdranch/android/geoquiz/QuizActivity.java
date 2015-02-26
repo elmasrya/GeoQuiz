@@ -17,6 +17,7 @@ public class QuizActivity extends Activity {
 	private Button mFalseButton;
 	private Button mNextButton;
 	private TextView mQuestionTextView;
+	private int mCurrentIndex = 0;
 	
 	private TrueFalse[] mQuestionBank = new TrueFalse[] {
 			new TrueFalse(R.string.question_oceans, true),
@@ -26,7 +27,7 @@ public class QuizActivity extends Activity {
 			new TrueFalse(R.string.question_asia, true),
 	};
 	
-	private int mCurrentIndex = 0;
+	
 	
 	
 	
@@ -56,6 +57,11 @@ public class QuizActivity extends Activity {
         		//some inner anonymous class
         	}
         });
+        
+        mNextButton = (Button)findViewById(R.id.next_button);
+   
+			
+			
     }
     
 	
