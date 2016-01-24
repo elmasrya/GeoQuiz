@@ -12,18 +12,21 @@ public class FirstScreen extends Activity {
     private TextView question;
     private Button trueBtn;
     private Button falseBtn;
-    private int points = 0;
+    private int points;
     private TextView score;
     private Button next;
     private Button prev;
 
     private TrueFalse[] questionBank;
 
-    private int currentIndex=0;
+    private int currentIndex;
 
     int questionNumber;
 
     private static final String TAG = "FirstScreen";
+    private static final String KEY_INDEX = "index";
+    private static final String KEY_INDEX_TWO = "index_two";
+
 
 
     @Override
@@ -48,7 +51,15 @@ public class FirstScreen extends Activity {
 
         };
 
-        currentIndex=0;
+
+
+        if (savedInstanceState !=null) {
+            currentIndex=savedInstanceState.getInt(KEY_INDEX,0);
+            points=savedInstanceState.getInt(KEY_INDEX_TWO,0);
+        } else {
+            points = 0;
+            currentIndex=0;
+        }
 
         updateQuestion();
 
@@ -161,6 +172,16 @@ public class FirstScreen extends Activity {
     public void onDestroy() {
         super.onDestroy();
         Log.d(TAG,"onDestroy() called");
+    }
+
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        Log.i(TAG, "onSaveInstanceState");
+        savedInstanceState.putInt(KEY_INDEX, currentIndex);
+        savedInstanceState.putInt(KEY_INDEX_TWO, points);
+
     }
 
 }
