@@ -1,6 +1,7 @@
 package com.andrewelmasry.geoquiz;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,6 +17,7 @@ public class FirstScreen extends Activity {
     private TextView score;
     private Button next;
     private Button prev;
+    private Button cheat;
 
     private TrueFalse[] questionBank;
 
@@ -40,6 +42,7 @@ public class FirstScreen extends Activity {
         score = (TextView)findViewById(R.id.score);
         next = (Button)findViewById(R.id.next);
         prev = (Button)findViewById(R.id.prev);
+        cheat = (Button)findViewById(R.id.cheat);
 
 
         questionBank = new TrueFalse[] {
@@ -85,6 +88,15 @@ public class FirstScreen extends Activity {
             }
         });
 
+
+        cheat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(FirstScreen.this, CheatActivity.class);
+                startActivity(intent);
+            }
+        });
+
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -116,6 +128,7 @@ public class FirstScreen extends Activity {
     }
 
     private void updateQuestion () {
+        Log.d(TAG, "Updating question text for question #" + currentIndex, new Exception());
         questionNumber = questionBank[currentIndex].getQuestion();
         question.setText(questionNumber);
 
@@ -171,7 +184,7 @@ public class FirstScreen extends Activity {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.d(TAG,"onDestroy() called");
+        Log.d(TAG, "onDestroy() called");
     }
 
 
@@ -183,5 +196,17 @@ public class FirstScreen extends Activity {
         savedInstanceState.putInt(KEY_INDEX_TWO, points);
 
     }
+
+    public int sumDouble(int a, int b) {
+        if(a==b) {
+            return 2*(a+b);
+        }
+        else {
+            return a+b;
+        }
+    }
+
+
+
 
 }
