@@ -23,6 +23,8 @@ public class FirstScreen extends Activity {
 
     private int currentIndex;
 
+    private boolean isCheater;
+
     int questionNumber;
 
     private static final String TAG = "FirstScreen";
@@ -93,7 +95,9 @@ public class FirstScreen extends Activity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(FirstScreen.this, CheatActivity.class);
-                startActivity(intent);
+                boolean answerIsTrue = questionBank[currentIndex].getTrueQuestion();
+                intent.putExtra(CheatActivity.EXTRA_ANSWER_IS_TRUE, answerIsTrue);
+                startActivityForResult(intent, 0);
             }
         });
 
@@ -125,7 +129,7 @@ public class FirstScreen extends Activity {
             }
         });
 
-    }
+    }//end of onCreate
 
     private void updateQuestion () {
         Log.d(TAG, "Updating question text for question #" + currentIndex, new Exception());
@@ -157,6 +161,14 @@ public class FirstScreen extends Activity {
         }
     }
 
+    protected void onActivityResult(int requestCode, Intent data) {
+        if (data == null ) {
+            return;
+        }
+
+        isCheater = data.getBooleanExtra(CheatActivity.EXTRA_ANSWER_IS_SHOWN, false);
+    }
+
     @Override
     public void onStart() {
         super.onStart();
@@ -166,19 +178,19 @@ public class FirstScreen extends Activity {
     @Override
     public void onPause() {
         super.onPause();
-        Log.d(TAG,"onPause() called");
+        Log.d(TAG, "onPause() called");
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        Log.d(TAG,"onResume() called");
+        Log.d(TAG, "onResume() called");
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        Log.d(TAG,"onStop() called");
+        Log.d(TAG, "onStop() called");
     }
 
     @Override
